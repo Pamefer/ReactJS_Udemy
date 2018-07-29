@@ -15,7 +15,6 @@ class WeatherLocation extends Component {
             city : 'Buenos Aires',
             data : null
         };
-        console.log('constructir');
     }
 
     handleUpdateClick = () => {
