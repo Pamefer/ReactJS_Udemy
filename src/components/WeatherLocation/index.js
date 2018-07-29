@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Location from './Location';
 import WeatherData from './WeatherData';
 import './styles.css'
+import convert from 'convert-units';
 import { 
     SUN
 } from '../../constants/weathers';
 
-const location = "Loja, Ec"
+const location = "Loja, ec"
 const api_key = "14c300da705692c2d414d00e13d90170"
 const api_weather = `http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${api_key}`;
 const data1 = {
@@ -26,17 +27,22 @@ class WeatherLocation extends Component {
         };
     }
 
+    getTemp = kelvin => {
+        return convert(kelvin).from('K').to('C').toFixed(2);
+    }
     getWeatherState = weather => {
         return SUN;
     }
+
     getData = (weather_data) => {
         const { humidity, temp } = weather_data.main;
         const { speed } = weather_data.wind;
         const weatherState  = this.getWeatherState(this.weather);
+        const temperature =  this.getTemp(temp);
 
         const data = {
             humidity,               // the same as humidity : humidity ECMA6
-            temperature: temp,
+            temperature,
             weatherState,
             wind: `${speed} m/s`
         }

@@ -9,14 +9,14 @@
 }
 
 .weatherExtraInfoCont{
-    width: 60%;
+    width: 50%;
     display: inline-block;
     line-height: 28px;
     text-align: left;
 }
 
 .weatherTemperatureCont {
-    width: 40%;
+    width: 50%;
     display: inline-block;
 }
 
