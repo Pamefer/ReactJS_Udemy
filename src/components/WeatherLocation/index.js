@@ -19,25 +19,40 @@ const data1 = {
 };
 
 class WeatherLocation extends Component {
-
     constructor() {
         super();
         this.state = {
             city : 'Buenos Aires',
             data : data1
         };
+        console.log('constructir');
     }
 
     handleUpdateClick = () => {
         fetch(api_weather).then( data => {
             return data.json();
         }).then( weather_data => {
-            debugger;
             const data = transformWeather(weather_data);
             this.setState({ data })     // the same as data : data ECMA6
         });
     }
 
+    
+    componentWillMount() {
+        console.log("willMount")
+    }
+
+    componentDidMount() {
+        console.log("DidMount")
+    }
+    
+    componentWillUpdate() {
+        console.log('WillUpdate')
+    }
+    
+    componentDidUpdate() {
+        console.log('DidUpdate')
+    }
     render = () => {
         const { city, data } = this.state;
         return (
