@@ -3,27 +3,17 @@ import Location from './Location';
 import WeatherData from './WeatherData';
 import './styles.css'
 import transformWeather from '../../services/transformWeather';
-import { 
-    SUN
-} from '../../constants/weathers';
-
 
 const location = "Loja, ec"
 const api_key = "14c300da705692c2d414d00e13d90170"
 const api_weather = `http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${api_key}`;
-const data1 = {
-    temperature: 20,
-    weatherState: SUN,
-    humidity: '10',
-    wind: '10 m/s',
-};
 
 class WeatherLocation extends Component {
     constructor() {
         super();
         this.state = {
             city : 'Buenos Aires',
-            data : data1
+            data : null
         };
         console.log('constructir');
     }
@@ -33,33 +23,21 @@ class WeatherLocation extends Component {
             return data.json();
         }).then( weather_data => {
             const data = transformWeather(weather_data);
-            this.setState({ data })     // the same as data : data ECMA6
+            this.setState({ data })    
         });
     }
 
     
     componentWillMount() {
-        console.log("willMount")
+        this.handleUpdateClick();
     }
 
-    componentDidMount() {
-        console.log("DidMount")
-    }
-    
-    componentWillUpdate() {
-        console.log('WillUpdate')
-    }
-    
-    componentDidUpdate() {
-        console.log('DidUpdate')
-    }
     render = () => {
         const { city, data } = this.state;
         return (
         <div className='weatherLocationCont'>
             <Location city={ city }/>
-            <WeatherData data={ data }/>
-            <button onClick={this.handleUpdateClick}>Actualizar</button>
+            {data ? <WeatherData data={ data }/> : 'Cargando...'}
         </div>
         )
     };
