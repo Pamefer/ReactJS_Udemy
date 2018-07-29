@@ -3,22 +3,17 @@ import Location from './Location';
 import WeatherData from './WeatherData';
 import './styles.css'
 import { 
-    SUN,
-    WINDY
-   } from '../../constants/weathers';
+    SUN
+} from '../../constants/weathers';
 
+const location = "Loja, Ec"
+const api_key = "14c300da705692c2d414d00e13d90170"
+const api_weather = `http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${api_key}`;
 const data1 = {
     temperature: 20,
     weatherState: SUN,
     humidity: '10',
     wind: '10 m/s',
-};
-
-const data2 = {
-    temperature: 18,
-    weatherState: WINDY,
-    humidity: '5',
-    wind: '19 m/s',
 };
 
 class WeatherLocation extends Component {
@@ -32,13 +27,15 @@ class WeatherLocation extends Component {
     }
 
     handleUpdateClick = () => {
+        fetch(api_weather);
+        /*
         this.setState ({
-            city : 'Buenos Aires',
             data : data2
         });
+        */
     }
 
-    render = ()=> {
+    render = () => {
         const { city, data } = this.state;
         return (
         <div className='weatherLocationCont'>
@@ -51,3 +48,4 @@ class WeatherLocation extends Component {
 }
 
 export default WeatherLocation;
+
