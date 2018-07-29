@@ -26,18 +26,30 @@ class WeatherLocation extends Component {
         };
     }
 
+    getWeatherState = weather => {
+        return SUN;
+    }
+    getData = (weather_data) => {
+        const { humidity, temp } = weather_data.main;
+        const { speed } = weather_data.wind;
+        const weatherState  = this.getWeatherState(this.weather);
+
+        const data = {
+            humidity,               // the same as humidity : humidity ECMA6
+            temperature: temp,
+            weatherState,
+            wind: `${speed} m/s`
+        }
+        return data;
+    } 
     handleUpdateClick = () => {
         fetch(api_weather).then( data => {
             return data.json();
         }).then( weather_data => {
-            console.log(weather_data)
             debugger;
+            const data = this.getData(weather_data);
+            this.setState({ data })     // the same as data : data ECMA6
         });
-        /*
-        this.setState ({
-            data : data2
-        });
-        */
     }
 
     render = () => {
